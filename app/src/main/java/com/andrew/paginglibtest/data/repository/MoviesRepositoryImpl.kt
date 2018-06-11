@@ -17,12 +17,8 @@ class MoviesRepositoryImpl
                     private var dao: MoviesDao,
                     private var movieMapper: MovieMapper) : MoviesRepository {
 
-    override fun getMoviesNetwork(page: Int): Single<List<Movie>> = api.getMovies(page)
+    override fun getMovies(page: Int): Single<List<Movie>> = api.getMovies(page)
             .map { it.list }
             .doOnSuccess { dao.insertMovies(it) }
             .map { movieMapper.mapList(it) }
-
-    override fun getMoviesDatabase(): Single<List<Movie>> = dao.getAllMovies()
-            .map { movieMapper.mapList(it) }
-
 }

@@ -1,13 +1,12 @@
-package com.andrew.paginglibtest.presentation.feature.movies.view
+package com.andrew.paginglibtest.presentation.feature.moviesFromRoom.view
 
 import android.arch.paging.PagedList
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import com.andrew.paginglibtest.R
 import com.andrew.paginglibtest.domain.entity.Movie
-import com.andrew.paginglibtest.presentation.feature.movies.adapter.MoviesAdapter
-import com.andrew.paginglibtest.presentation.feature.movies.presenter.MoviesPresenter
+import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.adapter.MoviesFromRoomAdapter
+import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.presenter.MoviesFromRoomPresenter
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -15,21 +14,22 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
 
+
 /**
  * Created by Andrew on 03.06.2018.
  */
 
-class MoviesActivity : MvpAppCompatActivity(), MoviesView {
+class MoviesFromRoomActivity : MvpAppCompatActivity(), MoviesFromRoomView {
 
     @Inject
     @InjectPresenter
-    lateinit var presenter: MoviesPresenter
+    lateinit var presenter: MoviesFromRoomPresenter
 
     @ProvidePresenter
     fun providePresenter() = presenter
 
     @Inject
-    lateinit var adapter: MoviesAdapter
+    lateinit var adapter: MoviesFromRoomAdapter
 
     @Inject
     lateinit var layoutManager: RecyclerView.LayoutManager
@@ -43,8 +43,8 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView {
             setDisplayShowHomeEnabled(true)
         }
         recycler_movies.apply {
-            adapter = this@MoviesActivity.adapter
-            layoutManager = this@MoviesActivity.layoutManager
+            adapter = this@MoviesFromRoomActivity.adapter
+            layoutManager = this@MoviesFromRoomActivity.layoutManager
         }
         layout_refresh.setOnRefreshListener {
             presenter.refresh()
@@ -54,11 +54,5 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView {
 
     override fun addMovies(movies: PagedList<Movie>) {
         adapter.submitList(movies)
-    }
-
-    override fun showError() {
-        Snackbar.make(recycler_movies, R.string.loading_error, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.reload, { presenter.reload() })
-                .show()
     }
 }

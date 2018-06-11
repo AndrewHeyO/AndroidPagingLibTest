@@ -1,5 +1,6 @@
 package com.andrew.paginglibtest.data.database
 
+import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -13,6 +14,9 @@ import io.reactivex.Single
 
 @Dao
 interface MoviesDao {
+
+    @Query("SELECT * FROM MovieModel")
+    fun getAllMoviesInDataSource(): DataSource.Factory<Int, MovieModel>
 
     @Query("SELECT * FROM MovieModel")
     fun getAllMovies(): Single<List<MovieModel>>

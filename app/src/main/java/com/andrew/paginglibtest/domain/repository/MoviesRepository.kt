@@ -9,9 +9,5 @@ import io.reactivex.Single
 
 interface MoviesRepository {
 
-    fun getMoviesNetwork(page: Int): Single<List<Movie>>
-
-    fun getMoviesDatabase(): Single<List<Movie>>
-
-    //fun getMoviesNetworkAndDatabase(page: Int): Single<List<Movie>>
+    fun getMovies(page: Int): Single<List<Movie>>
 }

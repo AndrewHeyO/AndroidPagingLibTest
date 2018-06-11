@@ -31,8 +31,7 @@ class MainActivity : BaseActivity(), MainView {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        button_network.setOnClickListener { presenter.navigateToNetworkMovies() }
-        button_database.setOnClickListener { presenter.navigateToDatabaseMovies() }
-        button_network_and_database.setOnClickListener { presenter.navigateToNetworkAndDatabaseMovies() }
+        button_movies.setOnClickListener { presenter.navigateToMovies() }
+        button_movies_from_room.setOnClickListener { presenter.navigateToMoviesFromRoom() }
     }
 }

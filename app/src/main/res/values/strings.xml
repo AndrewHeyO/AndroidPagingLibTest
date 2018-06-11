@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">PagingLibTest</string>
-    <string name="network">Network</string>
-    <string name="with_placeholders">With placeholders</string>
-    <string name="database">Database</string>
-    <string name="network_and_database">Network and database</string>
+    <string name="movies">Movies</string>
+    <string name="from_room">From Room</string>
     <string name="loading">Loading</string>
+    <string name="loading_error">Loading error</string>
+    <string name="reload">Reload</string>
 </resources>

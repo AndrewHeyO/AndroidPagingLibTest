@@ -1,4 +1,4 @@
-package com.andrew.paginglibtest.presentation.feature.movies.view
+package com.andrew.paginglibtest.presentation.feature.moviesFromRoom.view
 
 import android.arch.paging.PagedList
 import com.andrew.paginglibtest.domain.entity.Movie
@@ -8,9 +8,7 @@ import com.arellomobile.mvp.MvpView
  * Created by Andrew on 03.06.2018.
  */
 
-interface MoviesView : MvpView {
+interface MoviesFromRoomView : MvpView {
 
     fun addMovies(movies: PagedList<Movie>)
-
-    fun showError()
 }

@@ -7,24 +7,17 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/button_network"
+        android:id="@+id/button_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/network"/>
+        android:text="@string/movies"/>
 
     <Button
-        android:id="@+id/button_database"
+        android:id="@+id/button_movies_from_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/database"/>
-
-    <Button
-        android:id="@+id/button_network_and_database"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/network_and_database"/>
+        android:text="@string/from_room"/>
 
 </LinearLayout>

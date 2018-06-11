@@ -1,9 +1,8 @@
 package com.andrew.paginglibtest.presentation.feature.main.presenter
 
 import com.andrew.paginglibtest.presentation.feature.main.view.MainView
-import com.andrew.paginglibtest.presentation.navigation.MOVIES_DATABASE
-import com.andrew.paginglibtest.presentation.navigation.MOVIES_NETWORK
-import com.andrew.paginglibtest.presentation.navigation.MOVIES_NETWORK_AND_DATABASE
+import com.andrew.paginglibtest.presentation.navigation.MOVIES
+import com.andrew.paginglibtest.presentation.navigation.MOVIES_FROM_ROOM
 import com.arellomobile.mvp.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -14,16 +13,11 @@ import javax.inject.Inject
 
 class MainPresenter @Inject constructor(private var router: Router): MvpPresenter<MainView>() {
 
-    fun navigateToNetworkMovies() {
-        router.navigateTo(MOVIES_NETWORK)
+    fun navigateToMovies() {
+        router.navigateTo(MOVIES)
     }
 
-    fun navigateToDatabaseMovies() {
-        router.navigateTo(MOVIES_DATABASE)
+    fun navigateToMoviesFromRoom() {
+        router.navigateTo(MOVIES_FROM_ROOM)
     }
-
-    fun navigateToNetworkAndDatabaseMovies() {
-        router.navigateTo(MOVIES_NETWORK_AND_DATABASE)
-    }
-
 }

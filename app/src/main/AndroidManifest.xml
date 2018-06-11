@@ -19,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.feature.moviesNetwork.view.MoviesActivity" />
+        <activity
+            android:name=".presentation.feature.moviesFromRoom.view.MoviesFromRoomActivity"
+            android:parentActivityName=".presentation.feature.main.view.MainActivity" />
+        <activity
+            android:name=".presentation.feature.movies.view.MoviesActivity"
+            android:parentActivityName=".presentation.feature.main.view.MainActivity" />
     </application>
 
 </manifest>

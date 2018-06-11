@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class MovieMapper @Inject constructor() : Function<MovieModel, Movie> {
     override fun apply(t: MovieModel): Movie =
-            Movie(t.id, t.title, BASE_IMAGE_ROUTE + t.posterPath, t.overview, t.date)
+            Movie(t.id, t.title, if (t.posterPath != null) BASE_IMAGE_ROUTE + t.posterPath else "", t.overview, t.date)
 
     fun mapList(list: List<MovieModel>): List<Movie> = list.map { apply(it) }
 }

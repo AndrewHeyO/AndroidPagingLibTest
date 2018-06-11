@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.andrew.paginglibtest.di.PerActivity
 import com.andrew.paginglibtest.domain.entity.Movie
-import com.andrew.paginglibtest.presentation.feature.movies.adapter.MoviesAdapter
-import com.andrew.paginglibtest.presentation.feature.movies.view.MoviesActivity
+import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.adapter.MoviesFromRoomAdapter
+import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.view.MoviesFromRoomActivity
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
  */
 
 @Module
-class MoviesActivityModule {
+class MoviesFromRoomActivityModule {
 
     @PerActivity
     @Provides
@@ -24,7 +24,7 @@ class MoviesActivityModule {
 
     @PerActivity
     @Provides
-    fun provideMoviesAdapter(callback: DiffUtil.ItemCallback<Movie>) = MoviesAdapter(callback)
+    fun provideMoviesAdapter(callback: DiffUtil.ItemCallback<Movie>) = MoviesFromRoomAdapter(callback)
 
     @PerActivity
     @Provides
@@ -35,5 +35,5 @@ class MoviesActivityModule {
 
     @PerActivity
     @Provides
-    fun provideLayoutManager(activity: MoviesActivity): RecyclerView.LayoutManager = LinearLayoutManager(activity)
+    fun provideLayoutManager(activity: MoviesFromRoomActivity): RecyclerView.LayoutManager = LinearLayoutManager(activity)
 }

@@ -13,6 +13,6 @@ data class MovieResponse(@SerializedName("results") var list: List<MovieModel>)
 @Entity
 data class MovieModel(@SerializedName("id") @PrimaryKey var id: Long,
                       @SerializedName("title") var title: String,
-                      @SerializedName("poster_path") var posterPath: String,
+                      @SerializedName("poster_path") var posterPath: String?,
                       @SerializedName("overview") var overview: String,
                       @SerializedName("release_date") var date: String)
