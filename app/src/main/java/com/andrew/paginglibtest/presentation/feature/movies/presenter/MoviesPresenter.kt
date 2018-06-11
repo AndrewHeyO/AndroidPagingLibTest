@@ -22,11 +22,13 @@ class MoviesPresenter
 
     val PAGE_SIZE = 20
 
+    private var config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(PAGE_SIZE)
+            .build()
+
     fun getMovies() {
-        compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setPageSize(PAGE_SIZE)
-                .build())
+        compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, config)
                 .buildObservable()
                 .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
     }
