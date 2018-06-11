@@ -1,8 +1,6 @@
 package com.andrew.paginglibtest.domain.repository
 
 import com.andrew.paginglibtest.domain.entity.Movie
-import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -11,5 +9,9 @@ import io.reactivex.Single
 
 interface MoviesRepository {
 
-    fun getMovies(page: Int): Single<List<Movie>>
+    fun getMoviesNetwork(page: Int): Single<List<Movie>>
+
+    fun getMoviesDatabase(): Single<List<Movie>>
+
+    //fun getMoviesNetworkAndDatabase(page: Int): Single<List<Movie>>
 }

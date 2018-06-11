@@ -1,4 +1,4 @@
-package com.andrew.paginglibtest.presentation.feature.movies.view
+package com.andrew.paginglibtest.presentation.feature.moviesNetwork.view
 
 import android.arch.paging.PagedList
 import com.andrew.paginglibtest.domain.entity.Movie

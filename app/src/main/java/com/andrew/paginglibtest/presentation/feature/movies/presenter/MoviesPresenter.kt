@@ -1,8 +1,9 @@
-package com.andrew.paginglibtest.presentation.feature.movies.presenter
+package com.andrew.paginglibtest.presentation.feature.moviesNetwork.presenter
 
+import android.arch.paging.PagedList
 import android.arch.paging.RxPagedListBuilder
 import com.andrew.paginglibtest.presentation.feature.movies.pagingSource.MoviesDataSourceFactory
-import com.andrew.paginglibtest.presentation.feature.movies.view.MoviesView
+import com.andrew.paginglibtest.presentation.feature.moviesNetwork.view.MoviesView
 import com.andrew.paginglibtest.utils.logger.Logger
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -22,7 +23,10 @@ class MoviesPresenter
     val PAGE_SIZE = 20
 
     fun getMovies() {
-        compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, PAGE_SIZE)
+        compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(PAGE_SIZE)
+                .build())
                 .buildObservable()
                 .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
     }

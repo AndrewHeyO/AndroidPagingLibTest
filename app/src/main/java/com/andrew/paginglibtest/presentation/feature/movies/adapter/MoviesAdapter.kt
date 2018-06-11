@@ -23,19 +23,24 @@ class MoviesAdapter(diff: DiffUtil.ItemCallback<Movie>) : PagedListAdapter<Movie
             MovieViewHolder(parent.inflate(R.layout.item_movie))
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        holder.bind(getItem(position))
     }
 
     inner class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(movie: Movie) {
-            Glide.with(itemView)
-                    .load(movie.posterUrl)
-                    .apply(RequestOptions().circleCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                    .into(itemView.image_poster)
-            itemView.text_title.text = movie.title
-            itemView.text_overview.text = movie.overview
+        fun bind(movie: Movie?) {
+            if(movie == null) {
+                itemView.text_title.setText(R.string.loading)
+                itemView.text_overview.setText(R.string.loading)
+            } else {
+                Glide.with(itemView)
+                        .load(movie.posterUrl)
+                        .apply(RequestOptions().circleCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                        .into(itemView.image_poster)
+                itemView.text_title.text = movie.title
+                itemView.text_overview.text = movie.overview
+            }
         }
     }
 }

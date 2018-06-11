@@ -1,4 +1,4 @@
-package com.andrew.paginglibtest.presentation.feature.movies.view
+package com.andrew.paginglibtest.presentation.feature.moviesNetwork.view
 
 import android.arch.paging.PagedList
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import com.andrew.paginglibtest.R
 import com.andrew.paginglibtest.domain.entity.Movie
 import com.andrew.paginglibtest.presentation.feature.movies.adapter.MoviesAdapter
-import com.andrew.paginglibtest.presentation.feature.movies.presenter.MoviesPresenter
+import com.andrew.paginglibtest.presentation.feature.moviesNetwork.presenter.MoviesPresenter
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
