@@ -10,6 +10,10 @@ import dagger.Provides
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Forward
 
+/**
+ * Created by Andrew on 10.06.2018.
+ */
+
 @Module
 class MainActivityModule {
 

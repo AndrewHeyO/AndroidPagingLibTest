@@ -12,6 +12,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 /**
  * Created by Andrew on 07.06.2018.
  */
+
 @Module(includes = [AndroidSupportInjectionModule::class])
 abstract class BuilderModule {
 

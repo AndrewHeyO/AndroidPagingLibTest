@@ -3,9 +3,9 @@ package com.andrew.paginglibtest.presentation.feature.movies.presenter
 import android.arch.paging.RxPagedListBuilder
 import com.andrew.paginglibtest.presentation.feature.movies.pagingSource.MoviesDataSourceFactory
 import com.andrew.paginglibtest.presentation.feature.movies.view.MoviesView
+import com.andrew.paginglibtest.utils.logger.Logger
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -16,18 +16,18 @@ import javax.inject.Inject
 @InjectViewState
 class MoviesPresenter
 @Inject constructor(private var moviesDataSourceFactory: MoviesDataSourceFactory,
-                    private var compositeDisposable: CompositeDisposable) : MvpPresenter<MoviesView>() {
+                    private var compositeDisposable: CompositeDisposable,
+                    private var logger: Logger) : MvpPresenter<MoviesView>() {
 
     val PAGE_SIZE = 20
 
-    fun onStart() {
+    fun getMovies() {
         compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, PAGE_SIZE)
                 .buildObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ viewState.addMovies(it)}, {it.printStackTrace()}))
+                .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
     }
 
-    fun onStop() {
+    fun unsubscribe() {
         compositeDisposable.clear()
     }
 }

@@ -8,6 +8,9 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
+/**
+ * Created by Andrew on 10.06.2018.
+ */
 
 abstract class BaseActivity : MvpAppCompatActivity(), MvpView {
 

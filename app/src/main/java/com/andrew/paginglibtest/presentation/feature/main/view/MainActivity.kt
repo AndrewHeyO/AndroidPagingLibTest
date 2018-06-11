@@ -11,6 +11,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.Navigator
 import javax.inject.Inject
 
+/**
+ * Created by Andrew on 10.06.2018.
+ */
+
 class MainActivity : BaseActivity(), MainView {
 
     @Inject
@@ -27,6 +31,6 @@ class MainActivity : BaseActivity(), MainView {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        button_movies.setOnClickListener { presenter.navigateToMovies1() }
+        button_network.setOnClickListener { presenter.navigateToMovies1() }
     }
 }

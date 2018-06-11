@@ -3,13 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <Button
-        android:id="@+id/button_movies"
+        android:id="@+id/button_network"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/movies_by_page"/>
+        android:text="@string/network"/>
+
+    <Button
+        android:id="@+id/button_with_placeholders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/with_placeholders"/>
+
+    <Button
+        android:id="@+id/button_database"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/database"/>
+
+    <Button
+        android:id="@+id/button_network_and_database"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/network_and_database"/>
 
 </LinearLayout>

@@ -7,6 +7,9 @@ import android.arch.persistence.room.Query
 import com.andrew.paginglibtest.data.model.MovieModel
 import io.reactivex.Single
 
+/**
+ * Created by Andrew on 10.06.2018.
+ */
 
 @Dao
 interface MoviesDao {
