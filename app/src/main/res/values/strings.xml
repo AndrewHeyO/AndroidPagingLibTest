@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PagingLibTest</string>
+    <string name="movies_by_page">Movies by page</string>
 </resources>

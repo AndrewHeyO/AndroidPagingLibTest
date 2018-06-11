@@ -3,6 +3,7 @@ package com.andrew.paginglibtest.di.module
 import android.content.Context
 import com.andrew.paginglibtest.PagingApplication
 import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 /**
@@ -10,8 +11,9 @@ import javax.inject.Singleton
  */
 
 @Module
-abstract class AppModule {
+class AppModule {
 
     @Singleton
+    @Provides
     fun provideApplicationContext(app: PagingApplication): Context = app
 }

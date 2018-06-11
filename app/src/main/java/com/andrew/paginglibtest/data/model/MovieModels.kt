@@ -1,5 +1,7 @@
 package com.andrew.paginglibtest.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -8,7 +10,8 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(@SerializedName("results") var list: List<MovieModel>)
 
-data class MovieModel(@SerializedName("id") var id: Long,
+@Entity
+data class MovieModel(@SerializedName("id") @PrimaryKey var id: Long,
                       @SerializedName("title") var title: String,
                       @SerializedName("poster_path") var posterPath: String,
                       @SerializedName("overview") var overview: String,

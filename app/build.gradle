@@ -14,6 +14,12 @@ android {
 
         buildConfigField 'String', 'TMDBApiKeyV3', TMDBApiKeyV3
         buildConfigField 'String', 'TMDBApiKeyV4', TMDBApiKeyV4
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
     buildTypes {
         release {
@@ -73,4 +79,12 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
+
+    //room
+    implementation "android.arch.persistence.room:runtime:1.1.1-rc1"
+    kapt "android.arch.persistence.room:compiler:1.1.1-rc1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1-rc1"
+
+    //cicerone
+    implementation'ru.terrakok.cicerone:cicerone:3.0.0'
 }

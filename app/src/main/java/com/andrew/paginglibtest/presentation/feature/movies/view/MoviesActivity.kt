@@ -11,7 +11,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_movies.*
 import javax.inject.Inject
 
 class MoviesActivity : MvpAppCompatActivity(), MoviesView {
@@ -32,7 +32,7 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movies)
         recycler_movies.apply {
             adapter = this@MoviesActivity.adapter
             layoutManager = this@MoviesActivity.layoutManager

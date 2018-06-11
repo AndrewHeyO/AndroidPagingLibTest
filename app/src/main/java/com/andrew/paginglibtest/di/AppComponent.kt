@@ -1,10 +1,7 @@
 package com.andrew.paginglibtest.di
 
 import com.andrew.paginglibtest.PagingApplication
-import com.andrew.paginglibtest.di.module.AppModule
-import com.andrew.paginglibtest.di.module.BuilderModule
-import com.andrew.paginglibtest.di.module.NetworkModule
-import com.andrew.paginglibtest.di.module.RepositoryModule
+import com.andrew.paginglibtest.di.module.*
 import dagger.Component
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
@@ -17,7 +14,9 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class,
     BuilderModule::class,
     NetworkModule::class,
-    RepositoryModule::class])
+    RepositoryModule::class,
+    DatabaseModule::class,
+    NavigationModule::class])
 interface AppComponent : AndroidInjector<PagingApplication> {
 
     @Component.Builder
