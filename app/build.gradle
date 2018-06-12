@@ -74,7 +74,6 @@ dependencies {
     implementation('android.arch.paging:runtime:1.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    testImplementation "android.arch.paging:common:1.0.0"
     implementation "android.arch.paging:rxjava2:1.0.0-rc1"
 
     //glide

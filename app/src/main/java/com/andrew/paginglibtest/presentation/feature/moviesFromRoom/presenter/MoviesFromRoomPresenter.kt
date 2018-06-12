@@ -25,6 +25,8 @@ class MoviesFromRoomPresenter
     private var config = PagedList.Config.Builder()
             .setEnablePlaceholders(true)
             .setPageSize(20)
+            .setInitialLoadSizeHint(40)
+            .setPrefetchDistance(10)
             .build()
 
     override fun onFirstViewAttach() {
@@ -37,7 +39,7 @@ class MoviesFromRoomPresenter
     }
 
     private fun loadMovies() {
-        compositeDisposable.add(RxPagedListBuilder(dao.getAllMoviesInDataSource()
+        compositeDisposable.add(RxPagedListBuilder(dao.getAllMovies()
                 .map { mapper.apply(it) }, config)
                 .buildObservable()
                 .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))

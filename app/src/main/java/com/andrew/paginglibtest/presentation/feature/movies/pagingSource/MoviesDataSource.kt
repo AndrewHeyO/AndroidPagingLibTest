@@ -22,7 +22,6 @@ class MoviesDataSource constructor(private var repository: MoviesRepository,
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
         compositeDisposable.add(repository.getMovies(1)
-                .subscribeOn(Schedulers.newThread())
                 .doOnSuccess { logger.log("PAGE = " + 1 + " SIZE = " + it.size) }
                 .subscribe({
                     callback.onResult(it, null, 2)
@@ -35,7 +34,6 @@ class MoviesDataSource constructor(private var repository: MoviesRepository,
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
         compositeDisposable.add(repository.getMovies(params.key)
-                .subscribeOn(Schedulers.newThread())
                 .doOnSuccess { logger.log("PAGE = " + params.key + " SIZE = " + it.size) }
                 .subscribe({
                     callback.onResult(it, params.key + 1)
