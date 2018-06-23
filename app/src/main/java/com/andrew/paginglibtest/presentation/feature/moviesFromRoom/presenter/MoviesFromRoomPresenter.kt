@@ -42,7 +42,7 @@ class MoviesFromRoomPresenter
         compositeDisposable.add(RxPagedListBuilder(dao.getAllMovies()
                 .map { mapper.apply(it) }, config)
                 .buildObservable()
-                .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
+                .subscribe({ viewState.submitMovies(it) }, { logger.log(it) }))
     }
 
     private fun unsubscribe() {

@@ -52,7 +52,7 @@ class MoviesFromRoomActivity : MvpAppCompatActivity(), MoviesFromRoomView {
         }
     }
 
-    override fun addMovies(movies: PagedList<Movie>) {
+    override fun submitMovies(movies: PagedList<Movie>) {
         adapter.submitList(movies)
     }
 }

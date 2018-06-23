@@ -52,7 +52,7 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView, ErrorClickListener {
         }
     }
 
-    override fun addMovies(movies: PagedList<Movie>) {
+    override fun submitMovies(movies: PagedList<Movie>) {
         adapter.submitList(movies)
     }
 

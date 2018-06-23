@@ -21,4 +21,8 @@ class MoviesRepositoryImpl
             .map { it.list }
             .doOnSuccess { dao.insertMovies(it) }
             .map { movieMapper.mapList(it) }
+
+    override fun getMoviesWithOffset(offset: Int, limit: Int): Single<List<Movie>> = Single.fromCallable { ArrayList<Movie>() }
+
+    override fun getMoviesByName(name: String?): Single<List<Movie>> = Single.fromCallable { ArrayList<Movie>() }
 }

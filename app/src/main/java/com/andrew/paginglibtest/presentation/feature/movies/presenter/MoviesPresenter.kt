@@ -44,7 +44,7 @@ class MoviesPresenter
     private fun loadMoviesAndObserveErrors() {
         compositeDisposable.add(RxPagedListBuilder(moviesDataSourceFactory, 20)
                 .buildObservable()
-                .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
+                .subscribe({ viewState.submitMovies(it) }, { logger.log(it) }))
 
         compositeDisposable.add(stateEventBus.subject
                 .subscribeOn(Schedulers.newThread())

@@ -11,7 +11,7 @@ import com.arellomobile.mvp.MvpView
 
 interface MoviesView : MvpView {
 
-    fun addMovies(movies: PagedList<Movie>)
+    fun submitMovies(movies: PagedList<Movie>)
 
     fun handleState(type: State.Type)
 }

@@ -10,4 +10,8 @@ import io.reactivex.Single
 interface MoviesRepository {
 
     fun getMovies(page: Int): Single<List<Movie>>
+
+    fun getMoviesWithOffset(offset: Int, limit: Int): Single<List<Movie>>
+
+    fun getMoviesByName(name: String?): Single<List<Movie>>
 }

@@ -10,5 +10,5 @@ import com.arellomobile.mvp.MvpView
 
 interface MoviesFromRoomView : MvpView {
 
-    fun addMovies(movies: PagedList<Movie>)
+    fun submitMovies(movies: PagedList<Movie>)
 }
