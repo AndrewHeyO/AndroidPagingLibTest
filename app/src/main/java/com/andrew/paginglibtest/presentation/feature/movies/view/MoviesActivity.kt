@@ -2,10 +2,11 @@ package com.andrew.paginglibtest.presentation.feature.movies.view
 
 import android.arch.paging.PagedList
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import com.andrew.paginglibtest.R
 import com.andrew.paginglibtest.domain.entity.Movie
+import com.andrew.paginglibtest.presentation.eventBus.State
+import com.andrew.paginglibtest.presentation.feature.movies.adapter.ErrorClickListener
 import com.andrew.paginglibtest.presentation.feature.movies.adapter.MoviesAdapter
 import com.andrew.paginglibtest.presentation.feature.movies.presenter.MoviesPresenter
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -19,7 +20,7 @@ import javax.inject.Inject
  * Created by Andrew on 03.06.2018.
  */
 
-class MoviesActivity : MvpAppCompatActivity(), MoviesView {
+class MoviesActivity : MvpAppCompatActivity(), MoviesView, ErrorClickListener {
 
     @Inject
     @InjectPresenter
@@ -48,7 +49,6 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView {
         }
         layout_refresh.setOnRefreshListener {
             presenter.refresh()
-            layout_refresh.isRefreshing = false
         }
     }
 
@@ -56,9 +56,30 @@ class MoviesActivity : MvpAppCompatActivity(), MoviesView {
         adapter.submitList(movies)
     }
 
-    override fun showError() {
-        Snackbar.make(recycler_movies, R.string.loading_error, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.reload, { presenter.reload() })
-                .show()
+    override fun handleState(type: State.Type) {
+        when (type) {
+            State.Type.NONE -> {
+                layout_refresh.isRefreshing = false
+                adapter.removeLoading()
+                adapter.removeError()
+            }
+            State.Type.LOADING -> {
+                adapter.removeError()
+                if(adapter.itemCount > 0) {
+                    adapter.addLoading()
+                } else {
+                    layout_refresh.isRefreshing = true
+                }
+            }
+            State.Type.ERROR -> {
+                layout_refresh.isRefreshing = false
+                adapter.removeLoading()
+                adapter.addError()
+            }
+        }
+    }
+
+    override fun onRetryClicked() {
+        presenter.reload()
     }
 }

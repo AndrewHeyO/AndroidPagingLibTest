@@ -1,4 +1,4 @@
-package com.andrew.paginglibtest.presentation.feature.moviesFromRoom.di
+package com.andrew.paginglibtest.presentation.feature.movies.di
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -24,7 +24,7 @@ class MoviesActivityModule {
 
     @PerActivity
     @Provides
-    fun provideMoviesAdapter(callback: DiffUtil.ItemCallback<Movie>) = MoviesAdapter(callback)
+    fun provideMoviesAdapter(callback: DiffUtil.ItemCallback<Movie>, activity: MoviesActivity) = MoviesAdapter(callback, activity)
 
     @PerActivity
     @Provides

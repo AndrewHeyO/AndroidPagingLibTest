@@ -7,6 +7,7 @@ import javax.inject.Inject
 /**
  * Created by Andrew on 11.06.2018.
  */
+
 class LoggerImpl @Inject constructor(): Logger {
 
     val TAG = "PAGINATION_LIB_TEST"

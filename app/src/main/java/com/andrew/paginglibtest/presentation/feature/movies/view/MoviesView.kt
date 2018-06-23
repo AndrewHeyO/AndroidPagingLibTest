@@ -2,6 +2,7 @@ package com.andrew.paginglibtest.presentation.feature.movies.view
 
 import android.arch.paging.PagedList
 import com.andrew.paginglibtest.domain.entity.Movie
+import com.andrew.paginglibtest.presentation.eventBus.State
 import com.arellomobile.mvp.MvpView
 
 /**
@@ -12,5 +13,5 @@ interface MoviesView : MvpView {
 
     fun addMovies(movies: PagedList<Movie>)
 
-    fun showError()
+    fun handleState(type: State.Type)
 }

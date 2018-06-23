@@ -1,7 +1,7 @@
 package com.andrew.paginglibtest.presentation.feature.movies.presenter
 
 import android.arch.paging.RxPagedListBuilder
-import com.andrew.paginglibtest.presentation.eventBus.ErrorEventBus
+import com.andrew.paginglibtest.presentation.eventBus.StateEventBus
 import com.andrew.paginglibtest.presentation.feature.movies.pagingSource.MoviesDataSourceFactory
 import com.andrew.paginglibtest.presentation.feature.movies.view.MoviesView
 import com.andrew.paginglibtest.utils.logger.Logger
@@ -21,7 +21,7 @@ class MoviesPresenter
 @Inject constructor(private var moviesDataSourceFactory: MoviesDataSourceFactory,
                     private var compositeDisposable: CompositeDisposable,
                     private var logger: Logger,
-                    private var errorEventBus: ErrorEventBus) : MvpPresenter<MoviesView>() {
+                    private var stateEventBus: StateEventBus) : MvpPresenter<MoviesView>() {
 
     override fun onFirstViewAttach() {
         loadMoviesAndObserveErrors()
@@ -46,12 +46,12 @@ class MoviesPresenter
                 .buildObservable()
                 .subscribe({ viewState.addMovies(it) }, { logger.log(it) }))
 
-        compositeDisposable.add(errorEventBus.subject
+        compositeDisposable.add(stateEventBus.subject
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    viewState.showError()
-                    logger.log(it)
+                    viewState.handleState(it.type)
+                    it.error?.let { logger.log(it) }
                 }, { logger.log(it) }))
     }
 

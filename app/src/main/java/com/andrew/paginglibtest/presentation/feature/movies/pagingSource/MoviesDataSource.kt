@@ -3,8 +3,8 @@ package com.andrew.paginglibtest.presentation.feature.movies.pagingSource
 import android.arch.paging.PageKeyedDataSource
 import com.andrew.paginglibtest.domain.entity.Movie
 import com.andrew.paginglibtest.domain.repository.MoviesRepository
-import com.andrew.paginglibtest.presentation.eventBus.ErrorEventBus
-import com.andrew.paginglibtest.utils.logger.Logger
+import com.andrew.paginglibtest.presentation.eventBus.State
+import com.andrew.paginglibtest.presentation.eventBus.StateEventBus
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
@@ -16,31 +16,32 @@ import io.reactivex.schedulers.Schedulers
 
 class MoviesDataSource constructor(private var repository: MoviesRepository,
                                    private var compositeDisposable: CompositeDisposable,
-                                   private var logger: Logger,
-                                   private var errorEventBus: ErrorEventBus)
+                                   private var stateEventBus: StateEventBus)
     : PageKeyedDataSource<Int, Movie>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
         compositeDisposable.add(repository.getMovies(1)
-                .doOnSuccess { logger.log("PAGE = " + 1 + " SIZE = " + it.size) }
+                .doOnSubscribe { stateEventBus.onNext(State(State.Type.LOADING)) }
+                .doOnSuccess { stateEventBus.onNext(State(State.Type.NONE)) }
                 .subscribe({
                     callback.onResult(it, null, 2)
                     retryCompletable = null
                 }, {
-                    errorEventBus.onNext(it)
-                    retryCompletable = Completable.fromAction({ loadInitial(params, callback) })
+                    stateEventBus.onNext(State(State.Type.ERROR, it))
+                    retryCompletable = Completable.fromAction { loadInitial(params, callback) }
                 }))
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
         compositeDisposable.add(repository.getMovies(params.key)
-                .doOnSuccess { logger.log("PAGE = " + params.key + " SIZE = " + it.size) }
+                .doOnSubscribe { stateEventBus.onNext(State(State.Type.LOADING)) }
+                .doOnSuccess { stateEventBus.onNext(State(State.Type.NONE)) }
                 .subscribe({
                     callback.onResult(it, params.key + 1)
                     retryCompletable = null
                 }, {
-                    errorEventBus.onNext(it)
-                    retryCompletable = Completable.fromAction({ loadAfter(params, callback) })
+                    stateEventBus.onNext(State(State.Type.ERROR, it))
+                    retryCompletable = Completable.fromAction { loadAfter(params, callback) }
                 }))
     }
 
@@ -48,14 +49,13 @@ class MoviesDataSource constructor(private var repository: MoviesRepository,
 
     }
 
-
     private var retryCompletable: Completable? = null
 
-    public fun reload() {
+    fun reload() {
         if (retryCompletable != null) {
             compositeDisposable.add(retryCompletable!!
                     .subscribeOn(Schedulers.io())
-                    .subscribe({ }, { logger.log(it) }))
+                    .subscribe({ }, { stateEventBus.onNext(State(State.Type.ERROR, it)) }))
         }
     }
 

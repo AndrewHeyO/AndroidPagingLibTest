@@ -4,7 +4,7 @@ import com.andrew.paginglibtest.di.PerActivity
 import com.andrew.paginglibtest.presentation.feature.main.di.MainActivityModule
 import com.andrew.paginglibtest.presentation.feature.main.view.MainActivity
 import com.andrew.paginglibtest.presentation.feature.movies.view.MoviesActivity
-import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.di.MoviesActivityModule
+import com.andrew.paginglibtest.presentation.feature.movies.di.MoviesActivityModule
 import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.di.MoviesFromRoomActivityModule
 import com.andrew.paginglibtest.presentation.feature.moviesFromRoom.view.MoviesFromRoomActivity
 import dagger.Module
