@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
  */
 
 class MoviesAdapter(diff: DiffUtil.ItemCallback<Movie>,
-                    private var errorClickListener: ErrorClickListener)
+                    private val errorClickListener: ErrorClickListener)
     : PagedListAdapter<Movie, RecyclerView.ViewHolder>(diff) {
 
     private val loadingViewType = 123
@@ -88,10 +88,6 @@ class MoviesAdapter(diff: DiffUtil.ItemCallback<Movie>,
         }
         isError = false
         notifyItemRemoved(itemCount)
-    }
-
-    fun setClickListener(errorClickListener: ErrorClickListener) {
-        this.errorClickListener = errorClickListener
     }
 
     inner class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

@@ -22,7 +22,7 @@ class MoviesPresenter
                     private val logger: Logger) : MvpPresenter<MoviesView>() {
 
     override fun onFirstViewAttach() {
-        loadMoviesAndObserveErrors()
+        loadMovies()
     }
 
     override fun onDestroy() {
@@ -36,10 +36,10 @@ class MoviesPresenter
 
     fun refresh() {
         unsubscribe()
-        loadMoviesAndObserveErrors()
+        loadMovies()
     }
 
-    private fun loadMoviesAndObserveErrors() {
+    private fun loadMovies() {
         compositeDisposable.add(RxPagedListBuilder(sourceFactory, 20)
                 .buildObservable()
                 .subscribe({ viewState.submitMovies(it) }, { logger.log(it) }))
@@ -55,5 +55,10 @@ class MoviesPresenter
 
     private fun unsubscribe() {
         compositeDisposable.clear()
+    }
+
+    fun searchMovies(query: String?) {
+        sourceFactory.source.query = query
+        refresh()
     }
 }

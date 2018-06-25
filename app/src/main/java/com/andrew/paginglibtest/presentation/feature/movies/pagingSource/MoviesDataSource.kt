@@ -7,6 +7,7 @@ import com.andrew.paginglibtest.domain.repository.MoviesRepository
 import com.andrew.paginglibtest.presentation.viewModels.State
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -18,13 +19,11 @@ import javax.inject.Inject
 
 @PerActivity
 class MoviesDataSource @Inject constructor(private val repository: MoviesRepository,
-                                           private val compositeDisposable: CompositeDisposable)
+                                               private val compositeDisposable: CompositeDisposable)
     : PageKeyedDataSource<Int, Movie>() {
 
-    private val subject: PublishSubject<State> = PublishSubject.create()
-
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
-        compositeDisposable.add(repository.getMovies(1)
+        compositeDisposable.add(moviesSingle(1)
                 .doOnSubscribe { subject.onNext(State(State.Type.LOADING)) }
                 .doOnSuccess { subject.onNext(State(State.Type.NONE)) }
                 .subscribe({
@@ -37,7 +36,7 @@ class MoviesDataSource @Inject constructor(private val repository: MoviesReposit
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        compositeDisposable.add(repository.getMovies(params.key)
+        compositeDisposable.add(moviesSingle(params.key)
                 .doOnSubscribe { subject.onNext(State(State.Type.LOADING)) }
                 .doOnSuccess { subject.onNext(State(State.Type.NONE)) }
                 .subscribe({
@@ -53,7 +52,25 @@ class MoviesDataSource @Inject constructor(private val repository: MoviesReposit
 
     }
 
+    //SEARCH
+
+    var query: String? = null
+
+    private fun moviesSingle(page: Int): Single<List<Movie>> {
+        return if (query != null && query!!.trim().isNotEmpty()) {
+            repository.searchMovies(page, query!!)
+        } else {
+            repository.getMovies(page)
+        }
+    }
+
+    //STATES
+
+    private val subject: PublishSubject<State> = PublishSubject.create()
+
     fun observeState(): Observable<State> = subject
+
+    //RETRY
 
     private var retryCompletable: Completable? = null
 

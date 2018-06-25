@@ -13,4 +13,7 @@ interface MoviesApi {
 
     @GET("discover/movie")
     fun getMovies(@Query("page") page: Int): Single<MovieResponse>
+
+    @GET("search/movie")
+    fun searchMovies(@Query("page") page: Int, @Query("query") query: String): Single<MovieResponse>
 }

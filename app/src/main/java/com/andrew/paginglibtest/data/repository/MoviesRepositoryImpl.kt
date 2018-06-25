@@ -13,11 +13,16 @@ import javax.inject.Inject
  */
 
 class MoviesRepositoryImpl
-@Inject constructor(private var api: MoviesApi,
-                    private var dao: MoviesDao,
-                    private var movieMapper: MovieMapper) : MoviesRepository {
+@Inject constructor(private val api: MoviesApi,
+                    private val dao: MoviesDao,
+                    private val movieMapper: MovieMapper) : MoviesRepository {
 
     override fun getMovies(page: Int): Single<List<Movie>> = api.getMovies(page)
+            .map { it.list }
+            .doOnSuccess { dao.insertMovies(it) }
+            .map { movieMapper.mapList(it) }
+
+    override fun searchMovies(page: Int, query: String): Single<List<Movie>> = api.searchMovies(page, query)
             .map { it.list }
             .doOnSuccess { dao.insertMovies(it) }
             .map { movieMapper.mapList(it) }

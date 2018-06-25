@@ -6,4 +6,6 @@
     <string name="loading_error">Loading error</string>
     <string name="reload">Reload</string>
     <string name="repeat">Repeat</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Input movie</string>
 </resources>

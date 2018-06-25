@@ -13,7 +13,7 @@ import javax.inject.Inject
 class MoviesDataSourceFactory @Inject constructor(val source: MoviesDataSource)
     : DataSource.Factory<Int, Movie>() {
 
-    override fun create(): DataSource<Int, Movie>  {
+    override fun create(): DataSource<Int, Movie> {
         return source
     }
 }
