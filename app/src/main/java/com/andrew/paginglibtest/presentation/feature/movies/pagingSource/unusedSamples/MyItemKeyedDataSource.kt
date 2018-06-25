@@ -17,17 +17,17 @@ class MyItemKeyedDataSource @Inject constructor(private var repository: MoviesRe
     : ItemKeyedDataSource<String, Movie>() {
 
     override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<Movie>) {
-        compositeDisposable.add(repository.getMoviesByName(params.requestedInitialKey)
+        compositeDisposable.add(repository.getMoviesByLastName(params.requestedInitialKey)
                 .subscribe({ callback.onResult(it) }, {  }))
     }
 
     override fun loadAfter(params: LoadParams<String>, callback: LoadCallback<Movie>) {
-        compositeDisposable.add(repository.getMoviesByName(params.key)
+        compositeDisposable.add(repository.getMoviesByLastName(params.key)
                 .subscribe({ callback.onResult(it) }, {  }))
     }
 
     override fun loadBefore(params: LoadParams<String>, callback: LoadCallback<Movie>) {
-        compositeDisposable.add(repository.getMoviesByName(params.key)
+        compositeDisposable.add(repository.getMoviesByLastName(params.key)
                 .subscribe({ callback.onResult(it) }, {  }))
     }
 

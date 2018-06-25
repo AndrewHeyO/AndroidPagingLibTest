@@ -2,10 +2,12 @@ package com.andrew.paginglibtest.data.repository
 
 import com.andrew.paginglibtest.data.database.MoviesDao
 import com.andrew.paginglibtest.data.mapper.MovieMapper
+import com.andrew.paginglibtest.data.model.MovieResponse
 import com.andrew.paginglibtest.data.network.MoviesApi
 import com.andrew.paginglibtest.domain.entity.Movie
 import com.andrew.paginglibtest.domain.repository.MoviesRepository
 import io.reactivex.Single
+import io.reactivex.SingleTransformer
 import javax.inject.Inject
 
 /**
@@ -17,17 +19,27 @@ class MoviesRepositoryImpl
                     private val dao: MoviesDao,
                     private val movieMapper: MovieMapper) : MoviesRepository {
 
-    override fun getMovies(page: Int): Single<List<Movie>> = api.getMovies(page)
-            .map { it.list }
-            .doOnSuccess { dao.insertMovies(it) }
-            .map { movieMapper.mapList(it) }
+    override fun getMovies(page: Int): Single<List<Movie>> =
+            api.getMovies(page)
+                    .compose(mapAndCacheData())
 
-    override fun searchMovies(page: Int, query: String): Single<List<Movie>> = api.searchMovies(page, query)
-            .map { it.list }
-            .doOnSuccess { dao.insertMovies(it) }
-            .map { movieMapper.mapList(it) }
+    override fun searchMovies(page: Int, query: String): Single<List<Movie>> =
+            api.searchMovies(page, query)
+                    .compose(mapAndCacheData())
 
-    override fun getMoviesWithOffset(offset: Int, limit: Int): Single<List<Movie>> = Single.fromCallable { ArrayList<Movie>() }
+    override fun getMoviesWithOffset(offset: Int, limit: Int): Single<List<Movie>> =
+            api.getMovies(offset, limit)
+                    .compose(mapAndCacheData())
 
-    override fun getMoviesByName(name: String?): Single<List<Movie>> = Single.fromCallable { ArrayList<Movie>() }
+    override fun getMoviesByLastName(name: String?): Single<List<Movie>> =
+            api.getMovies(name)
+                    .compose(mapAndCacheData())
+
+    private fun mapAndCacheData(): SingleTransformer<MovieResponse, List<Movie>> {
+        return SingleTransformer {
+            it.map { it.list }
+                    .doOnSuccess { dao.insertMovies(it) }
+                    .map { movieMapper.mapList(it) }
+        }
+    }
 }

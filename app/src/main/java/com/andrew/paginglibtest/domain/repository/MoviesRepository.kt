@@ -15,5 +15,5 @@ interface MoviesRepository {
 
     fun getMoviesWithOffset(offset: Int, limit: Int): Single<List<Movie>>
 
-    fun getMoviesByName(name: String?): Single<List<Movie>>
+    fun getMoviesByLastName(name: String?): Single<List<Movie>>
 }

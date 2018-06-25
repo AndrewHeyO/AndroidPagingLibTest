@@ -16,4 +16,10 @@ interface MoviesApi {
 
     @GET("search/movie")
     fun searchMovies(@Query("page") page: Int, @Query("query") query: String): Single<MovieResponse>
+
+    @GET
+    fun getMovies(@Query("offset") offset: Int, @Query("limit") limit: Int): Single<MovieResponse>
+
+    @GET
+    fun getMovies(@Query("last_title") id: String?): Single<MovieResponse>
 }
