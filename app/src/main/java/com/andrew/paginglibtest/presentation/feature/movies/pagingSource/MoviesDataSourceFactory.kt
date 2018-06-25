@@ -3,9 +3,6 @@ package com.andrew.paginglibtest.presentation.feature.movies.pagingSource
 import android.arch.paging.DataSource
 import com.andrew.paginglibtest.di.PerActivity
 import com.andrew.paginglibtest.domain.entity.Movie
-import com.andrew.paginglibtest.domain.repository.MoviesRepository
-import com.andrew.paginglibtest.presentation.eventBus.StateEventBus
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**
@@ -13,15 +10,10 @@ import javax.inject.Inject
  */
 
 @PerActivity
-class MoviesDataSourceFactory @Inject constructor(private var repository: MoviesRepository,
-                                                  private var compositeDisposable: CompositeDisposable,
-                                                  private var stateEventBus: StateEventBus)
+class MoviesDataSourceFactory @Inject constructor(val source: MoviesDataSource)
     : DataSource.Factory<Int, Movie>() {
 
-    lateinit var currentSource: MoviesDataSource
-
     override fun create(): DataSource<Int, Movie>  {
-        currentSource = MoviesDataSource(repository, compositeDisposable, stateEventBus)
-        return currentSource
+        return source
     }
 }

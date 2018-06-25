@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import com.andrew.paginglibtest.R
 import com.andrew.paginglibtest.domain.entity.Movie
-import com.andrew.paginglibtest.presentation.eventBus.State
+import com.andrew.paginglibtest.presentation.viewModels.State
 import com.andrew.paginglibtest.presentation.feature.movies.adapter.ErrorClickListener
 import com.andrew.paginglibtest.presentation.feature.movies.adapter.MoviesAdapter
 import com.andrew.paginglibtest.presentation.feature.movies.presenter.MoviesPresenter

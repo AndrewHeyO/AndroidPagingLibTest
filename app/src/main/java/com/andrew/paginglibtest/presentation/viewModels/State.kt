@@ -1,4 +1,4 @@
-package com.andrew.paginglibtest.presentation.eventBus
+package com.andrew.paginglibtest.presentation.viewModels
 
 /**
  * Created by Andrew on 23.06.2018

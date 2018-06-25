@@ -2,7 +2,7 @@ package com.andrew.paginglibtest.presentation.feature.movies.view
 
 import android.arch.paging.PagedList
 import com.andrew.paginglibtest.domain.entity.Movie
-import com.andrew.paginglibtest.presentation.eventBus.State
+import com.andrew.paginglibtest.presentation.viewModels.State
 import com.arellomobile.mvp.MvpView
 
 /**
