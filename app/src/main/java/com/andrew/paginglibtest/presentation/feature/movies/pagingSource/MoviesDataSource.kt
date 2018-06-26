@@ -28,10 +28,10 @@ class MoviesDataSource @Inject constructor(private val repository: MoviesReposit
                 .doOnSuccess { subject.onNext(State(State.Type.NONE)) }
                 .subscribe({
                     callback.onResult(it, null, 2)
-                    retryCompletable = null
+                    retryAction = null
                 }, {
                     subject.onNext(State(State.Type.ERROR, it))
-                    retryCompletable = Completable.fromAction { loadInitial(params, callback) }
+                    retryAction = { loadInitial(params, callback) }
                 }))
     }
 
@@ -41,10 +41,10 @@ class MoviesDataSource @Inject constructor(private val repository: MoviesReposit
                 .doOnSuccess { subject.onNext(State(State.Type.NONE)) }
                 .subscribe({
                     callback.onResult(it, params.key + 1)
-                    retryCompletable = null
+                    retryAction = null
                 }, {
                     subject.onNext(State(State.Type.ERROR, it))
-                    retryCompletable = Completable.fromAction { loadAfter(params, callback) }
+                    retryAction = { loadAfter(params, callback) }
                 }))
     }
 
@@ -72,13 +72,9 @@ class MoviesDataSource @Inject constructor(private val repository: MoviesReposit
 
     //RETRY
 
-    private var retryCompletable: Completable? = null
+    private var retryAction: (() -> Unit)? = null
 
     fun reload() {
-        if (retryCompletable != null) {
-            compositeDisposable.add(retryCompletable!!
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ }, { subject.onNext(State(State.Type.ERROR, it)) }))
-        }
+        retryAction?.invoke()
     }
 }
